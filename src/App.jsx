@@ -116,7 +116,7 @@ function Hero() {
 function About() {
   const stats = [
     { value: "2+", label: "Years Experience" },
-    { value: "10+", label: "Live Projects" },
+    { value: "20+", label: "Live Projects" },
     { value: "100%", label: "Responsive Design" },
     { value: "24/7", label: "Support" }
   ];
@@ -416,42 +416,74 @@ function Contact() {
           </p>
           
           <div className="flex flex-col gap-6">
-            <a href="mailto:contact@ayush.dev" className="flex items-center gap-4 text-gray-300 hover:text-electricBlue transition-colors group w-fit">
+            <a href="mailto:ayushmaurya01@outlook.com" className="flex items-center gap-4 text-gray-300 hover:text-electricBlue transition-colors group w-fit">
               <div className="w-12 h-12 rounded-full bg-darkCard border border-white/5 flex items-center justify-center group-hover:border-electricBlue/30">
                 <Mail size={20} />
               </div>
-              contact@ayush.dev
+              ayushmaurya01@outlook.com
             </a>
-            <a href="#" className="flex items-center gap-4 text-gray-300 hover:text-green-500 transition-colors group w-fit">
-               <div className="w-12 h-12 rounded-full bg-darkCard border border-white/5 flex items-center justify-center group-hover:border-green-500/30">
-                <MessageCircle size={20} />
-              </div>
-              WhatsApp Me
-            </a>
+            <a
+  href="https://wa.me/919315773385"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex items-center gap-4 text-gray-300 hover:text-green-500 transition-colors group w-fit"
+>
+  <div className="w-12 h-12 rounded-full bg-darkCard border border-white/5 flex items-center justify-center group-hover:border-green-500/30">
+    <MessageCircle size={20} />
+  </div>
+  WhatsApp Me
+</a>
           </div>
         </motion.div>
 
-        <motion.form 
-          variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
-          className="bg-darkCard p-8 rounded-3xl border border-white/5"
-          onSubmit={(e) => e.preventDefault()}
-        >
+        <motion.form
+  action="https://formsubmit.co/ayushmaurya01@outlook.com"
+  method="POST"
+  variants={fadeInUp}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, margin: "-100px" }}
+  className="bg-darkCard p-8 rounded-3xl border border-white/5"
+>
+  <input type="hidden" name="_captcha" value="false" />
+  <input type="hidden" name="_subject" value="New Portfolio Inquiry" />
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-400 mb-2">Name</label>
-              <input type="text" className="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electricBlue transition-colors" placeholder="John Doe" />
+            <input
+  type="text"
+  name="name"
+  required
+  className="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electricBlue transition-colors"
+  placeholder="John Doe"
+/>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-400 mb-2">Email</label>
-              <input type="email" className="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electricBlue transition-colors" placeholder="john@example.com" />
+              <input
+  type="email"
+  name="email"
+  required
+  className="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electricBlue transition-colors"
+  placeholder="john@example.com"
+/>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-400 mb-2">Message</label>
-              <textarea rows="4" className="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electricBlue transition-colors resize-none" placeholder="Tell me about your project..."></textarea>
+              <textarea
+  rows="4"
+  name="message"
+  required
+  className="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electricBlue transition-colors resize-none"
+  placeholder="Tell me about your project..."
+></textarea>
             </div>
-            <button className="w-full bg-electricBlue text-white font-medium py-4 rounded-xl hover:bg-blue-600 transition-colors">
-              Send Message
-            </button>
+           <button
+  type="submit"
+  className="w-full bg-electricBlue text-white font-medium py-4 rounded-xl hover:bg-blue-600 transition-colors"
+>
+  Send Message
+</button>
           </div>
         </motion.form>
       </div>

@@ -114,29 +114,99 @@ function Hero() {
 }
 
 function About() {
-  const techs = ["React", "Vite", "Tailwind CSS", "JavaScript", "HTML", "CSS", "GitHub"];
-  
+  const stats = [
+    { value: "2+", label: "Years Experience" },
+    { value: "3+", label: "Live Projects" },
+    { value: "100%", label: "Responsive Design" },
+    { value: "24/7", label: "Support" }
+  ];
+
+  const highlights = [
+    { icon: "⚡", title: "Fast Performance", desc: "Modern websites optimized for speed." },
+    { icon: "📱", title: "Mobile First", desc: "Fully responsive on all devices." },
+    { icon: "🎨", title: "Modern Design", desc: "Clean, professional user interfaces." },
+    { icon: "🚀", title: "Business Focused", desc: "Built to help businesses grow online." }
+  ];
+
   return (
-    <section id="about" className="py-24 px-6 bg-darkCard">
-      <motion.div 
-        variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
-        className="max-w-4xl mx-auto text-center"
-      >
-        <h2 className="text-3xl md:text-4xl font-bold mb-6">Freelance Web Designer & Developer</h2>
-        <p className="text-gray-400 mb-10 leading-relaxed text-lg">
-          With 2+ years of experience building modern websites, I focus on crafting responsive, fast-loading, and highly professional digital experiences that drive real business results.
-        </p>
-        <div>
-          <h3 className="text-lg font-semibold mb-6 text-white">Technologies I Use</h3>
-          <div className="flex flex-wrap justify-center gap-3">
-            {techs.map(tech => (
-              <span key={tech} className="px-4 py-2 bg-darkBg border border-white/10 rounded-full text-sm text-gray-300 hover:border-electricBlue hover:text-electricBlue transition-colors cursor-default">
-                {tech}
-              </span>
+    <section id="about" className="py-24 px-6 bg-darkCard relative overflow-hidden">
+      {/* Subtle Background Glow for premium feel */}
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-electricBlue/10 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
+
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          {/* LEFT SIDE - Content */}
+          <motion.div 
+            variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+            className="lg:col-span-7"
+          >
+            <span className="inline-block py-1.5 px-4 rounded-full bg-electricBlue/10 text-electricBlue text-xs font-bold tracking-widest uppercase mb-6 border border-electricBlue/20">
+              About Me
+            </span>
+            
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+              Helping Businesses Build Professional Digital Experiences
+            </h2>
+            
+            <div className="space-y-5 text-gray-400 text-lg leading-relaxed mb-10">
+              <p>
+                Hi, I'm Ayush Maurya, a Freelance Web Designer & Developer with 2+ years of experience creating modern, responsive, and user-friendly websites. I work with businesses, startups, educational institutions, gyms, and restaurants to build websites that strengthen their online presence and deliver a seamless user experience.
+              </p>
+              <p>
+                My focus is on creating fast, visually appealing, and conversion-focused websites that not only look professional but also help businesses attract customers, generate leads, and grow online.
+              </p>
+            </div>
+
+            {/* Highlight Cards */}
+            <div className="grid sm:grid-cols-2 gap-4">
+              {highlights.map((item, idx) => (
+                <div 
+                  key={idx} 
+                  className="p-5 rounded-2xl bg-darkBg border border-white/5 hover:border-white/10 transition-colors flex gap-4 items-start"
+                >
+                  <span className="text-2xl mt-0.5">{item.icon}</span>
+                  <div>
+                    <h4 className="text-white font-semibold mb-1">{item.title}</h4>
+                    <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* RIGHT SIDE - Premium Stats Cards */}
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+            }} 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true, margin: "-100px" }}
+            className="lg:col-span-5 grid grid-cols-2 gap-4 md:gap-6 relative"
+          >
+            {stats.map((stat, idx) => (
+              <motion.div 
+                key={idx} 
+                variants={fadeInUp}
+                className="relative z-10 p-6 md:p-8 rounded-3xl bg-[#0f0f0f] border border-white/5 flex flex-col items-center justify-center text-center overflow-hidden group hover:border-electricBlue/30 transition-all duration-500 shadow-2xl hover:shadow-[0_0_30px_rgba(0,82,255,0.15)] hover:-translate-y-1"
+              >
+                {/* Glass reflection hover effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                
+                <h3 className="text-4xl md:text-5xl font-bold text-white mb-3 tracking-tight group-hover:text-electricBlue transition-colors duration-500">
+                  {stat.value}
+                </h3>
+                <p className="text-xs md:text-sm font-semibold text-gray-400 uppercase tracking-widest">
+                  {stat.label}
+                </p>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
+          
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

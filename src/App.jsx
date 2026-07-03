@@ -122,11 +122,11 @@ function About() {
   ];
 
   const highlights = [
-    { icon: "⚡", title: "Fast Performance", desc: "Modern websites optimized for speed." },
-    { icon: "📱", title: "Mobile First", desc: "Fully responsive on all devices." },
-    { icon: "🎨", title: "Modern Design", desc: "Clean, professional user interfaces." },
-    { icon: "🚀", title: "Business Focused", desc: "Built to help businesses grow online." }
-  ];
+  { title: "Fast Performance", desc: "Modern websites optimized for speed." },
+  { title: "Mobile First", desc: "Fully responsive on all devices." },
+  { title: "Modern Design", desc: "Clean, professional user interfaces." },
+  { title: "Business Focused", desc: "Built to help businesses grow online." }
+];
 
   return (
     <section id="about" className="py-24 px-6 bg-darkCard relative overflow-hidden">

@@ -53,7 +53,7 @@ function Navbar() {
   return (
     <nav className="fixed w-full top-0 z-40 bg-darkBg/80 backdrop-blur-md border-b border-white/5">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <span className="text-xl font-bold tracking-tighter">Ayush<span className="text-electricBlue">.dev</span></span>
+        <span className="text-xl font-bold tracking-tighter">ayush<span className="text-electricBlue">.dev</span></span>
         <div className="hidden md:flex gap-8 text-sm font-medium text-gray-400">
           <a href="#about" className="hover:text-white transition-colors">About</a>
           <a href="#services" className="hover:text-white transition-colors">Services</a>
@@ -116,7 +116,7 @@ function Hero() {
 function About() {
   const stats = [
     { value: "2+", label: "Years Experience" },
-    { value: "3+", label: "Live Projects" },
+    { value: "10+", label: "Live Projects" },
     { value: "100%", label: "Responsive Design" },
     { value: "24/7", label: "Support" }
   ];

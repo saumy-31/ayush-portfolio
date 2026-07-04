@@ -189,7 +189,7 @@ function Hero() {
 function About() {
   const stats = [
     { value: "2+", label: "Years Experience" },
-    { value: "3+", label: "Live Projects" },
+    { value: "20+", label: "Live Projects" },
     { value: "100%", label: "Responsive Design" },
     { value: "24/7", label: "Support" }
   ];

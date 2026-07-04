@@ -1,8 +1,8 @@
-import React from 'react';
-import { motion, useScroll } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, useScroll, AnimatePresence } from 'framer-motion';
 import { 
   Code, Smartphone, Layout, Rocket, RefreshCw, Wrench, 
-  CheckCircle, Mail, MessageCircle, ExternalLink, ChevronRight
+  CheckCircle, Mail, MessageCircle, ExternalLink, ChevronRight, Menu, X
 } from 'lucide-react';
 
 // Import your actual project screenshots
@@ -30,7 +30,7 @@ export default function App() {
     <div className="bg-darkBg text-white min-h-screen font-sans selection-blue overflow-x-hidden">
       {/* Scroll Progress Bar */}
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-electricBlue origin-left z-50 shadow-[0_0_10px_#0052FF]"
+        className="fixed top-0 left-0 right-0 h-1 bg-electricBlue origin-left z-[60] shadow-[0_0_10px_#0052FF]"
         style={{ scaleX: scrollYProgress }}
       />
 
@@ -45,23 +45,96 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      
+      {/* Floating WhatsApp Button */}
+      <FloatingWhatsApp />
     </div>
   );
 }
 
 function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Prevent scrolling when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isOpen]);
+
+  const navLinks = [
+    { name: 'About', href: '#about' },
+    { name: 'Services', href: '#services' },
+    { name: 'Portfolio', href: '#portfolio' },
+    { name: 'Contact', href: '#contact' }
+  ];
+
   return (
-    <nav className="fixed w-full top-0 z-40 bg-darkBg/80 backdrop-blur-md border-b border-white/5">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <span className="text-xl font-bold tracking-tighter">ayush<span className="text-electricBlue">.dev</span></span>
+    <nav className="fixed w-full top-0 z-50 bg-darkBg/80 backdrop-blur-md border-b border-white/5">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative z-50">
+        <span className="text-xl font-bold tracking-tighter">Ayush<span className="text-electricBlue">.dev</span></span>
+        
+        {/* Desktop Navigation */}
         <div className="hidden md:flex gap-8 text-sm font-medium text-gray-400">
-          <a href="#about" className="hover:text-white transition-colors">About</a>
-          <a href="#services" className="hover:text-white transition-colors">Services</a>
-          <a href="#portfolio" className="hover:text-white transition-colors">Portfolio</a>
-          <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+          {navLinks.map((link) => (
+            <a key={link.name} href={link.href} className="hover:text-white transition-colors">
+              {link.name}
+            </a>
+          ))}
         </div>
+
+        {/* Mobile Hamburger Button */}
+        <button 
+          className="md:hidden text-gray-300 hover:text-white transition-colors"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
+        >
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
       </div>
+
+      {/* Mobile Slide-down Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+            className="absolute top-full left-0 w-full bg-[#0a0a0a] border-b border-white/10 md:hidden shadow-2xl z-40"
+          >
+            <div className="flex flex-col px-6 py-6 gap-2">
+              {navLinks.map((link) => (
+                <a 
+                  key={link.name} 
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="text-gray-300 hover:text-electricBlue font-medium text-lg py-4 border-b border-white/5 last:border-0 transition-colors"
+                >
+                  {link.name}
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
+  );
+}
+
+function FloatingWhatsApp() {
+  return (
+    <a
+      href="https://wa.me/919315773385?text=Hi%20Ayush,%20I%20am%20interested%20in%20your%20website%20development%20services."
+      target="_blank"
+      rel="noopener noreferrer"
+      className="fixed bottom-6 right-6 z-[100] bg-[#25D366] text-white p-4 rounded-full shadow-[0_8px_25px_rgba(37,211,102,0.4)] hover:bg-[#20bd5a] hover:scale-110 hover:-translate-y-2 transition-all duration-300 flex items-center justify-center group"
+      aria-label="Contact on WhatsApp"
+    >
+      <MessageCircle size={28} className="group-hover:animate-pulse" />
+    </a>
   );
 }
 
@@ -116,27 +189,25 @@ function Hero() {
 function About() {
   const stats = [
     { value: "2+", label: "Years Experience" },
-    { value: "20+", label: "Live Projects" },
+    { value: "3+", label: "Live Projects" },
     { value: "100%", label: "Responsive Design" },
     { value: "24/7", label: "Support" }
   ];
 
   const highlights = [
-  { title: "Fast Performance", desc: "Modern websites optimized for speed." },
-  { title: "Mobile First", desc: "Fully responsive on all devices." },
-  { title: "Modern Design", desc: "Clean, professional user interfaces." },
-  { title: "Business Focused", desc: "Built to help businesses grow online." }
-];
+    { icon: "⚡", title: "Fast Performance", desc: "Modern websites optimized for speed." },
+    { icon: "📱", title: "Mobile First", desc: "Fully responsive on all devices." },
+    { icon: "🎨", title: "Modern Design", desc: "Clean, professional user interfaces." },
+    { icon: "🚀", title: "Business Focused", desc: "Built to help businesses grow online." }
+  ];
 
   return (
     <section id="about" className="py-24 px-6 bg-darkCard relative overflow-hidden">
-      {/* Subtle Background Glow for premium feel */}
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-electricBlue/10 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* LEFT SIDE - Content */}
           <motion.div 
             variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
             className="lg:col-span-7"
@@ -158,7 +229,6 @@ function About() {
               </p>
             </div>
 
-            {/* Highlight Cards */}
             <div className="grid sm:grid-cols-2 gap-4">
               {highlights.map((item, idx) => (
                 <div 
@@ -175,7 +245,6 @@ function About() {
             </div>
           </motion.div>
 
-          {/* RIGHT SIDE - Premium Stats Cards */}
           <motion.div 
             variants={{
               hidden: { opacity: 0 },
@@ -192,7 +261,6 @@ function About() {
                 variants={fadeInUp}
                 className="relative z-10 p-6 md:p-8 rounded-3xl bg-[#0f0f0f] border border-white/5 flex flex-col items-center justify-center text-center overflow-hidden group hover:border-electricBlue/30 transition-all duration-500 shadow-2xl hover:shadow-[0_0_30px_rgba(0,82,255,0.15)] hover:-translate-y-1"
               >
-                {/* Glass reflection hover effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 
                 <h3 className="text-4xl md:text-5xl font-bold text-white mb-3 tracking-tight group-hover:text-electricBlue transition-colors duration-500">
@@ -287,12 +355,7 @@ function Portfolio() {
               key={idx} variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
               className="flex flex-col md:flex-row bg-darkBg border border-white/5 rounded-3xl overflow-hidden group hover:border-white/10 transition-colors shadow-2xl"
             >
-              {/* 
-                UPDATED IMAGE CONTAINER 
-                Removed object-cover. Added padding, flex centering, and rounded corners to the image itself.
-              */}
               <div className="md:w-1/2 lg:w-[55%] p-6 md:p-10 bg-[#0d0d0d] border-b md:border-b-0 md:border-r border-white/5 flex items-center justify-center relative overflow-hidden">
-                {/* Subtle hover glow effect */}
                 <div className="absolute inset-0 bg-electricBlue/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 
                 <img 
@@ -302,7 +365,6 @@ function Portfolio() {
                 />
               </div>
               
-              {/* Content Section */}
               <div className="md:w-1/2 lg:w-[45%] p-8 md:p-12 flex flex-col justify-center">
                 <span className="text-electricBlue text-sm font-semibold tracking-wider uppercase mb-2">{proj.category}</span>
                 <h3 className="text-3xl font-bold mb-4">{proj.title}</h3>
@@ -416,74 +478,42 @@ function Contact() {
           </p>
           
           <div className="flex flex-col gap-6">
-            <a href="mailto:ayushmaurya01@outlook.com" className="flex items-center gap-4 text-gray-300 hover:text-electricBlue transition-colors group w-fit">
+            <a href="mailto:contact@ayush.dev" className="flex items-center gap-4 text-gray-300 hover:text-electricBlue transition-colors group w-fit">
               <div className="w-12 h-12 rounded-full bg-darkCard border border-white/5 flex items-center justify-center group-hover:border-electricBlue/30">
                 <Mail size={20} />
               </div>
-              ayushmaurya01@outlook.com
+              contact@ayush.dev
             </a>
-            <a
-  href="https://wa.me/919315773385"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="flex items-center gap-4 text-gray-300 hover:text-green-500 transition-colors group w-fit"
->
-  <div className="w-12 h-12 rounded-full bg-darkCard border border-white/5 flex items-center justify-center group-hover:border-green-500/30">
-    <MessageCircle size={20} />
-  </div>
-  WhatsApp Me
-</a>
+            <a href="#" className="flex items-center gap-4 text-gray-300 hover:text-green-500 transition-colors group w-fit">
+               <div className="w-12 h-12 rounded-full bg-darkCard border border-white/5 flex items-center justify-center group-hover:border-green-500/30">
+                <MessageCircle size={20} />
+              </div>
+              WhatsApp Me
+            </a>
           </div>
         </motion.div>
 
-        <motion.form
-  action="https://formsubmit.co/ayushmaurya01@outlook.com"
-  method="POST"
-  variants={fadeInUp}
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true, margin: "-100px" }}
-  className="bg-darkCard p-8 rounded-3xl border border-white/5"
->
-  <input type="hidden" name="_captcha" value="false" />
-  <input type="hidden" name="_subject" value="New Portfolio Inquiry" />
+        <motion.form 
+          variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+          className="bg-darkCard p-8 rounded-3xl border border-white/5"
+          onSubmit={(e) => e.preventDefault()}
+        >
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-400 mb-2">Name</label>
-            <input
-  type="text"
-  name="name"
-  required
-  className="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electricBlue transition-colors"
-  placeholder="John Doe"
-/>
+              <input type="text" className="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electricBlue transition-colors" placeholder="John Doe" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-400 mb-2">Email</label>
-              <input
-  type="email"
-  name="email"
-  required
-  className="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electricBlue transition-colors"
-  placeholder="john@example.com"
-/>
+              <input type="email" className="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electricBlue transition-colors" placeholder="john@example.com" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-400 mb-2">Message</label>
-              <textarea
-  rows="4"
-  name="message"
-  required
-  className="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electricBlue transition-colors resize-none"
-  placeholder="Tell me about your project..."
-></textarea>
+              <textarea rows="4" className="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electricBlue transition-colors resize-none" placeholder="Tell me about your project..."></textarea>
             </div>
-           <button
-  type="submit"
-  className="w-full bg-electricBlue text-white font-medium py-4 rounded-xl hover:bg-blue-600 transition-colors"
->
-  Send Message
-</button>
+            <button className="w-full bg-electricBlue text-white font-medium py-4 rounded-xl hover:bg-blue-600 transition-colors">
+              Send Message
+            </button>
           </div>
         </motion.form>
       </div>
@@ -495,7 +525,7 @@ function Footer() {
   return (
     <footer className="bg-darkCard border-t border-white/5 py-12 px-6">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-        <div className="text-xl font-bold tracking-tighter">Ayush<span className="text-electricBlue">.dev</span></div>
+        <div className="text-xl font-bold tracking-tighter">ayush<span className="text-electricBlue">.dev</span></div>
         <div className="flex gap-6 text-sm text-gray-400">
           <a href="#about" className="hover:text-white transition-colors">About</a>
           <a href="#services" className="hover:text-white transition-colors">Services</a>

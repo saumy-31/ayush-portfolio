@@ -74,7 +74,7 @@ function Navbar() {
   return (
     <nav className="fixed w-full top-0 z-50 bg-darkBg/80 backdrop-blur-md border-b border-white/5">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative z-50">
-        <span className="text-xl font-bold tracking-tighter">Ayush<span className="text-electricBlue">.dev</span></span>
+        <span className="text-xl font-bold tracking-tighter">ayush<span className="text-electricBlue">.dev</span></span>
         
         {/* Desktop Navigation */}
         <div className="hidden md:flex gap-8 text-sm font-medium text-gray-400">
